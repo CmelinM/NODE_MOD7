@@ -9,10 +9,12 @@ CREATE DATABASE primera_conexion;
 ```
 
 ```sql
-CREATE TABLE usuarios (
-nombre VARCHAR,
-apellido VARCHAR,
-email VARCHAR
+CREATE TABLE usuarios( 
+	nombre VARCHAR, 
+	apellido VARCHAR, 
+	email VARCHAR UNIQUE NOT NULL, 
+	password VARCHAR NOT NULL, 
+	id SERIAL PRIMARY KEY 
 );
 ```
 

@@ -1,38 +1,31 @@
-/**
- * Importamos dependencias
- */
 import express from 'express'
+import bodyParser from 'body-parser'
+
 import { UsersRouter } from './routes/index.js'
 
-/**
- * Creamos instancia del servidor "Express"
- */
+const PORT = process.env.PORT || 3000
 const app = express()
 
-const port = process.argv[2] || 3000
-
-app.listen(port, () => {
-  console.log("Aplicación escuchando el puerto", port)
-})
+/**
+ * Middlewares
+ */
+app.use(bodyParser.json()) // permitir analizar json en el cuerpo de req
 
 /**
  * Rutas
  */
-app.get("/", (req, res) => {
-  res.json({ message: 'Hola a todos' })
-})
+app.use("/usuarios", UsersRouter)
 
 /**
- * Obsoleto
+ * Levantamos Servidor
  */
-// app.get("/usuarios", (req, res) => {
-//   res.json({message: 'Recurso usuarios'})
-// })
-app.use("/usuarios", UsersRouter)
+app.listen(PORT, () => {
+  console.log(`Aplicación corriendo en el puerto ${PORT}`)
+})
 
 /**
  * Resiliencia
  */
 process.on('uncaughtException', (err) => {
-  console.error(err)
+  console.log(err)
 })
