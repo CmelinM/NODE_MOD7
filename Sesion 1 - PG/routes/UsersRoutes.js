@@ -4,6 +4,7 @@ import { CreateUser, DeleteUser, FindUser, GetUsers, UpdateUser } from '../contr
 /**
  * Definimos instancia de enrutador
  */
+
 const router = express.Router()
 
 router.get("/", async (req, res, next) => {
