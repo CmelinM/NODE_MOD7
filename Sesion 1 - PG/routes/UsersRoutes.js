@@ -1,14 +1,18 @@
 import express from 'express'
-import { CreateUser, FindUser, GetUsers, UpdateUser } from '../controllers/index.js'
+import { CreateUser, DeleteUser, FindUser, GetUsers, UpdateUser } from '../controllers/index.js'
 
 /**
  * Definimos instancia de enrutador
  */
 const router = express.Router()
 
-router.get("/", GetUsers)
+router.get("/", async (req, res, next) => {
+  await GetUsers(req, res, next)
+})
+
 router.get("/:id", FindUser)
 router.post("/", CreateUser)
-router.put("/:id", UpdateUser)
+router.patch("/:id", UpdateUser)
+router.delete("/:id", DeleteUser)
 
 export { router as UsersRouter }

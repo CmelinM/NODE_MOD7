@@ -14,7 +14,9 @@ app.use(bodyParser.json()) // permitir analizar json en el cuerpo de req
 /**
  * Rutas
  */
-app.use("/usuarios", UsersRouter)
+app.use("/usuarios", async (req, res, next) => { 
+  await UsersRouter(req, res, next)
+})
 
 /**
  * Levantamos Servidor

@@ -1,6 +1,6 @@
 import { createUserSchema, updateUserSchema } from "../dto/index.js"
 import { User } from "../models/index.js"
-import { HashPassword } from "../utils/PasswordUtils.js"
+import { HashPassword } from "../utils/index.js"
 
 export const GetUsers = async (req, res, next) => {
   try {
@@ -45,34 +45,66 @@ export const CreateUser = async (req, res, next) => {
  * /usuarios/1
  * /usuarios/asdpo12-qe123-123qwe-123
  */
-// TODO: Implementar endpoint
 export const FindUser = async (req, res, next) => {
-  console.log(req.params)
+  const { id } = req.params
+  try {
+    const user = await User.find(id)
 
-  return res.json({message: 'Endpoint en progreso'})
+    if(user.rowCount == 0) {
+      return res.status(404).json({ message: 'Usuario no encontrado'})
+    }
+    return res.json({ ...user.rows[0] })
+  } catch (err) {
+    return res.status(500).json({ message: 'Internal server error' })
+  }
 }
 
 /**
  * DELETE /usuarios/{id}
  */
 export const DeleteUser = async (req, res, next) => {
-  return res.json({message: 'Endpoint de borrado en progreso'})
+  const { id } = req.params
+  try {
+    const result = await User.delete(id)
+
+    if(result.rowCount == 0) {
+      return res.status(404).json({message: 'Usuario no encontrado'})
+    } else {
+      return res.status(200).json({message: 'Usuario eliminado'})
+    }
+  } catch (err) {
+    return res.status(500).json({ message: 'Internal Server Error' })
+  }
 }
 
 /**
- * PUT /usuarios/{id} + payload
+ * PATCH /usuarios/{id} + payload
  */
 export const UpdateUser = async (req, res, next) => {
   const data = req.body
+  const { id } = req.params
 
-  const { error, value: user } = updateUserSchema.validate(data)
+  const { error, value: user } = updateUserSchema.validate({...data, id})
 
   if(error) {
     return res.status(400).json({ error: error.message })
-  } else {
+  }  else {
     /**
      * Tratar de actualizar
      */
-  }
+    try {
+      const existingUser = await User.find(id)
 
+      if(existingUser.rowCount == 0) {
+        return res.status(404).json({ message: 'Usuario no encontrado' })
+      }
+      delete user.id
+      await User.update(id, user)
+
+      return res.status(200).json({ message: 'Updated User' })
+    } catch (err) {
+      console.error(err)
+      return res.status(500).json({ message: 'Internal Server Error'})
+    }
+  }
 }

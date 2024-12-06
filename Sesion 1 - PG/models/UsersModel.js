@@ -53,14 +53,18 @@ User.update = async (id, data) => {
   }
   params.push(id)
 
-  if(campos.length == 0) {
-    throw new Error('No hay datos para actualizar')
-  }
-
   let text = `UPDATE usuarios SET ${campos.join(', ')} WHERE id = $${index}`
 
   const result = await query(text, params)
   return result.rows
+}
+
+User.delete = async (id) => {
+  const text = 'DELETE FROM usuarios WHERE id = $1'
+  const params = [id]
+
+  const result = await query(text, params)
+  return result
 }
 
 export { User }
