@@ -2,8 +2,6 @@
 
 ## Definición de bd
 
-
-
 ```sql
 CREATE DATABASE primera_conexion;
 ```
@@ -19,9 +17,10 @@ CREATE TABLE usuarios(
 ```
 
 ```sql
-INSERT INTO usuarios (nombre, apellido, email) VALUES (
+INSERT INTO usuarios (nombre, apellido, email, password) VALUES (
   'Juan Carlos',
   'Bodoque',
-  'jbodoque@aplaplac.cl'
+  'jbodoque@aplaplac.cl',
+	'asd90182390'
 );
 ```
