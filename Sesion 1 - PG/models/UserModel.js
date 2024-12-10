@@ -1,7 +1,7 @@
 /**
  * Importamos "Conector a DB"
  */
-import { query } from "../config/index.js";
+import { getClient, query } from "../config/index.js";
 
 const User = {}
 

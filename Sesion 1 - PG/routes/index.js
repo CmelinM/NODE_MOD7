@@ -3,3 +3,4 @@
  */
 export	* from './UsersRoutes.js'
 export * from './AnimesRouters.js'
+export * from './ComprasRoutes.js'

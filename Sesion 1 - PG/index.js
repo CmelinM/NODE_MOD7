@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import { UsersRouter } from './routes/index.js'
+import { AnimesRouter, ComprasRouter, UsersRouter } from './routes/index.js'
 
 const PORT = process.env.PORT || 3000
 const app = express()
@@ -17,6 +17,8 @@ app.use(bodyParser.json()) // permitir analizar json en el cuerpo de req
 app.use("/usuarios", async (req, res, next) => { 
   await UsersRouter(req, res, next)
 })
+app.use("/animes", AnimesRouter)
+app.use("/compras", ComprasRouter)
 
 /**
  * Levantamos Servidor

@@ -22,3 +22,4 @@ export const updateAnimeSchema = Joi.object({
   autor: autor.optional(),
   stock: stock.optional()
 }).or("nombre", "genero", "year", "autor", "stock");
+
