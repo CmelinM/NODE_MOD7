@@ -54,3 +54,21 @@ INSERT INTO animes (nombre, genero, year, autor) VALUES
 ('Spirited Away', 'Fantasy', '2001', 'Hayao Miyazaki'),
 ('Your Name', 'Romance', '2016', 'Makoto Shinkai');
 ```
+
+```sql
+CREATE TABLE compras (
+	id SERIAL PRIMARY KEY,
+	user_id INT REFERENCES usuarios(id),
+	anime_id INT REFERENCES animes(id)
+);
+```
+
+## Ejemplo .env
+
+```text
+PG_DATABASE=database
+PG_USER=postgres_user
+PG_PASSWORD=password
+PG_PORT=5432
+PG_HOST=localhost
+```
