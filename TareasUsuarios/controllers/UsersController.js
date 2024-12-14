@@ -19,7 +19,9 @@ UsersController.getAll = async (req, res, next) => {
   try {
     const users = await User.findAll({ order: [ [ 'id', 'ASC'] ] })
 
-    return res.json(users)
+    console.log(users.map(user => user.getSafeInfo()))
+
+    return res.json(users.map(user => user.getSafeInfo()))
   } catch (err) {
     console.log(err)
     return res.status(500).json({ message: 'Internal Server Error' })
@@ -32,6 +34,26 @@ UsersController.findById = async (req, res, next) => {
 
   try {
     const usuario = await User.findByPk(id)
+
+    /**
+     * usuario es instancia de User
+     * trae métodos "ayudantes" que permiten traer
+     * información de tablas relacionadas
+     */
+    // console.log(usuario)
+
+    /**
+     * usuario.toJSON() es info "plana"
+     */
+    // console.log(usuario.toJSON())
+
+    /**
+     * usuario.getSafeInfo()
+     * 
+     * metodo creado, definimos campos, transformaciones
+     * o modificaciones para presentar data
+     */
+    // console.log(usuario.getSafeInfo())
 
     if(!usuario) {
       return res.status(404).json({ message: 'Usuario no encontrado' })
@@ -93,6 +115,44 @@ UsersController.createTodo = async (req, res, next) => {
   } catch (err) {
     // TODO: definir status codes
     return res.json({ message: err.message })
+  }
+}
+
+UsersController.listTodo = async (req, res, next) => {
+  const { id } = req.params
+
+  try {
+    const user = await User.findOne({
+      where: { id },
+      include: ToDo
+    })
+
+    if(!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' })
+    }
+    return res.json(user.getSafeInfo())
+  } catch (err) {
+    console.error(err)
+
+    return res.json({ message: 'Problemas obteniendo usuario' })
+  }
+}
+
+UsersController.getTodoById = async (req, res, next) => {
+  const { user_id, tarea_id } = req.params
+
+  try {
+    const tarea = await ToDo.findOne({
+      where: { userId: user_id, id: tarea_id },
+      include: User
+    })
+
+    console.log(await tarea.getUser())
+
+    return res.json(tarea)
+  } catch (err) {
+
+    res.json(err)
   }
 }
 

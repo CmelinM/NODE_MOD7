@@ -9,7 +9,13 @@ const sequelize = new Sequelize({
   port: process.env.PG_PORT
 })
 
-class User extends Model {}
+class User extends Model {
+  getSafeInfo() {
+    const user = this.toJSON()
+    delete user.password
+    return user
+  }
+}
 
 User.init(
   {
@@ -72,6 +78,7 @@ ToDo.init(
 )
 
 ToDo.belongsTo(User, { foreignKey: 'userId' })
+User.hasMany(ToDo, { foreignKey: 'userId' })
 
 async function connectTesting() {
   try {
