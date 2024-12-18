@@ -1,11 +1,15 @@
 # Sequelize CLI
 
+```bash
+npm install -D sequelize-cli
+```
+
 Comando inicialización
 
 ```bash
-npx sequelize init
+npx sequelize init # Levanta configuración inicial
 
-npx sequelize model:generate --name NombreModelo --attribures campo:tipo,campo:tipo
+npx sequelize model:generate --name NombreModelo --attributes campo:tipo,campo:tipo
 
 npx sequelize db:create # Crea la base de datos de desarrollo
 NODE_ENV=test npx sequelize db:create # crea db de ambiente "test"

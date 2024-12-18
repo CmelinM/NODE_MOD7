@@ -32,6 +32,14 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: true
       }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      get() {
+        const formatDate = this.getDataValue("createdAt")
+        // TODO: terminar de formatear la fecha
+        return formatDate.getFullYear()
+      }
     }
   }, {
     sequelize,
