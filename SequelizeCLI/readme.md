@@ -16,3 +16,16 @@ NODE_ENV=test npx sequelize db:create # crea db de ambiente "test"
 
 npx sequelize db:migrate # Crea tabla de la última migración ambiente desarrollo
 ```
+
+```js
+
+// geters personalizados
+    createdAt: {
+      type: DataTypes.DATE,
+      get() {
+        const formatDate = this.getDataValue("createdAt")
+        // TODO: terminar de formatear la fecha
+        return formatDate.getFullYear()
+      }
+    }
+```
