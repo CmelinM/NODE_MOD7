@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
+     * The `models/index` file will call this method automatically. 
      */
     static associate(models) {
       // define association here
@@ -17,12 +17,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Purchase.init({
-    UserId: DataTypes.INTEGER, // pendiente las restricciones
-    AnimeId: DataTypes.INTEGER, // pendiente restricciones
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    AnimeId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
     amount: DataTypes.REAL
   }, {
     sequelize,
     modelName: 'Purchase',
   });
   return Purchase;
-};
+}; 

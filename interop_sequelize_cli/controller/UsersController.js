@@ -18,4 +18,10 @@ UsersController.create = async (req, res, next) => {
   }
 }
 
+UsersController.list = async (req, res, next) => {
+  const users = await User.findAll()
+
+  return res.json(users)
+}
+
 export { UsersController }

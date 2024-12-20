@@ -18,6 +18,20 @@ AnimesController.create = async (req, res, next) => {
   }
 }
 
+AnimesController.getAllAnimes = async (req, res, next) => {
+  try {
+    const animes = await Anime.findAll();
+
+    return res.json(animes);
+  } catch (err) {
+    console.error(err);
+
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+
+
 export {
   AnimesController
 }

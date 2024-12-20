@@ -9,6 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      /** Llave Foránea */
       UserId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -17,6 +18,7 @@ module.exports = {
           key: 'id' // Campo en tabla objetivo
         }
       },
+      /** Llave Foránea */
       AnimeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
