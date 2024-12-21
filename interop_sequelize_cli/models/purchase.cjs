@@ -9,6 +9,33 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically. 
      */
+
+    // Compra de anime
+    static async createOrder(data) {
+      const transaction = await sequelize.transaction()
+      try {
+        const purchase = await this.create(data, { transaction })
+
+        const user = await purchase.getUser({ transaction })
+        const anime = await purchase.getAnime({ transaction })
+
+        // console.log(user)
+        // console.log(anime)
+
+        if(!user) throw new Error('User not found', { cause: 'INVALID_RECORD' });
+        if(!anime) throw new Error('Anime not found', { cause: 'INVALID_RECORD' });
+
+        anime.stock -= 1;
+        await anime.save({ transaction })
+
+        await transaction.commit()
+        return purchase
+      } catch (err) {
+        await transaction.rollback()
+        throw err
+      }
+    }
+
     static associate(models) {
       // define association here
       const { User, Anime } = models
@@ -29,6 +56,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Purchase',
+    paranoid: true
   });
   return Purchase;
 }; 

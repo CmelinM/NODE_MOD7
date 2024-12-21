@@ -1,0 +1,74 @@
+{
+  "animes": [
+    {
+      "name": "Attack on Titan: The Final Season - Part 4",
+      "genre": "Action, Drama, Fantasy",
+      "year": "2024",
+      "author": "Hajime Isayama",
+      "stock": 10
+    },
+    {
+      "name": "Jujutsu Kaisen Season 2",
+      "genre": "Action, Supernatural, Shounen",
+      "year": "2024",
+      "author": "Gege Akutami",
+      "stock": 7
+    },
+    {
+      "name": "Demon Slayer: Swordsmith Village Arc",
+      "genre": "Action, Adventure, Supernatural",
+      "year": "2024",
+      "author": "Koyoharu Gotouge",
+      "stock": 5
+    },
+    {
+      "name": "One Piece",
+      "genre": "Adventure, Fantasy, Action",
+      "year": "1999",
+      "author": "Eiichiro Oda",
+      "stock": 20
+    },
+    {
+      "name": "Spy x Family Season 2",
+      "genre": "Action, Comedy, Slice of Life",
+      "year": "2024",
+      "author": "Tatsuya Endo",
+      "stock": 12
+    },
+    {
+      "name": "Tokyo Revengers: Tenjiku Arc",
+      "genre": "Action, Drama, Supernatural",
+      "year": "2024",
+      "author": "Ken Wakui",
+      "stock": 8
+    },
+    {
+      "name": "Chainsaw Man Season 2",
+      "genre": "Action, Horror, Supernatural",
+      "year": "2024",
+      "author": "Tatsuki Fujimoto",
+      "stock": 6
+    },
+    {
+      "name": "My Hero Academia Season 7",
+      "genre": "Action, Superhero, Shounen",
+      "year": "2024",
+      "author": "Kohei Horikoshi",
+      "stock": 9
+    },
+    {
+      "name": "Blue Lock Season 2",
+      "genre": "Sports, Drama, Shounen",
+      "year": "2024",
+      "author": "Muneyuki Kaneshiro",
+      "stock": 4
+    },
+    {
+      "name": "Mushoku Tensei: Jobless Reincarnation Season 3",
+      "genre": "Fantasy, Adventure, Drama",
+      "year": "2024",
+      "author": "Rifujin na Magonote",
+      "stock": 7
+    }
+  ]
+}

@@ -30,6 +30,10 @@ AnimesController.getAllAnimes = async (req, res, next) => {
   }
 };
 
+AnimesController.delete = async (req, res, next) => {
+  
+}
+
 
 
 export {

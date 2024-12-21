@@ -24,4 +24,21 @@ UsersController.list = async (req, res, next) => {
   return res.json(users)
 }
 
+UsersController.delete = async (req, res, next) => {
+  const { id } = req.params
+
+  try {
+    const result = await User.destroy({ where: { id } })
+
+    if(!result) {
+      return res.status(404).json({ message: 'Usuario no encontrado' })
+    }
+
+    res.json({ message: 'Usuario eliminado' })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ message: 'Internal Server Error' })
+  }
+}
+
 export { UsersController }
