@@ -36,6 +36,33 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
 
+    static async returnOrderById(id) {
+      const transaction = await sequelize.transaction();
+
+      try {
+        const purchase = await this.findByPk(id, { transaction })
+
+        if(!purchase){
+          throw new Error('Compra no encontrada', { cause: 'RECORD_NOT_FOUND' })
+        }
+
+        const anime = await purchase.getAnime({ transaction })
+        anime.stock += 1;
+
+        await anime.save({ transaction })
+        await purchase.destroy({ transaction })
+
+        await transaction.commit()
+      } catch (err) {
+        await transaction.rollback()
+        throw err
+      }
+    }
+
+    async returnOrder() {
+
+    }
+
     static associate(models) {
       // define association here
       const { User, Anime } = models

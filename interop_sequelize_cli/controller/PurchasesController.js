@@ -33,6 +33,10 @@ const PurchasesController = {}
 //   }
 // }
 
+
+/**
+ * POST /purchases + payload
+ */
 PurchasesController.create = async (req, res, next) => {
   const data = req.body
 
@@ -45,6 +49,38 @@ PurchasesController.create = async (req, res, next) => {
       return res.status(404).json({message: err.message})
     }
 
+    return res.status(500).json({ message: 'Internal Server Error' })
+  }
+}
+
+/**
+ * DELETE /purchases/{id}
+ */
+PurchasesController.delete = async (req, res, next) => {
+  const { id } = req.params
+  try {
+    /**
+     * Opción 1
+     */
+    await Purchase.returnOrderById(id)
+
+    return res.json({ message: 'Compra Eliminada' })
+
+
+    /**
+     * Opción 2 👀🦄
+     */
+    const purchase = await Purchase.findByPk(id)
+    if(!purchase) throw new Error()
+
+    await purchase.returnOrder()
+    return res.json()
+  } catch (err) {
+    if(err?.cause == 'RECORD_NOT_FOUND') {
+      return res.status(404).json({ message: err.message })
+    }
+
+    console.error(err)
     return res.status(500).json({ message: 'Internal Server Error' })
   }
 }
